@@ -1,22 +1,19 @@
-  name: "cars"
+  name: "R For Conservation"
   output_dir: "docs"
   navbar:
-    title: "Cars"
+    title: "R For Conservation"
     left:
      - text: "Home"
        href: index.html
-     - text: "Data visualisation"
-       icon: fa-gear
+     - text: "Data visualisations"
        menu:
           - text: "Showing Habitat Change"
             href: showing-habitat-change.html
     right: 
-     - icon: fa-gear
+     - icon: ion-social-linkedin
        href: https://www.linkedin.com/in/robbiestill/
   output:
     html_document:
       theme: cosmo
       highlight: textmate
-      include:
-       after_body: footer.html
       css: styles.css
