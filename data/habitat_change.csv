@@ -1,16 +1,16 @@
-id,before,after
-1,woodland,woodland
-2,woodland,woodland
-3,woodland,built up
-4,arable,grassland
-5,arable,grassland
-6,arable,grassland
-7,arable,grassland
-8,arable,grassland
-9,arable,woodland
-10,arable,woodland
-11,arable,woodland
-12,arable,woodland
-13,arable,woodland
-14,grassland,built up
-15,grassland,woodland
+id,before,after,area
+1,woodland,woodland,10
+2,woodland,woodland,8
+3,woodland,built up,12
+4,arable,grassland,11
+5,arable,grassland,4
+6,arable,grassland,8
+7,arable,grassland,24
+8,arable,grassland,11
+9,arable,woodland,12
+10,arable,woodland,17
+11,arable,woodland,15
+12,arable,woodland,19
+13,arable,woodland,21
+14,grassland,built up,23
+15,grassland,woodland,15

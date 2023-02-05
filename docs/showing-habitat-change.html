@@ -11,7 +11,7 @@
 
 
 
-<title>showing-habitat-change</title>
+<title>Showing Habitat Change using a Sankey diagram</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -276,35 +276,117 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">showing-habitat-change</h1>
+<h1 class="title toc-ignore">Showing Habitat Change using a Sankey
+diagram</h1>
 
 </div>
 
 
 <div id="setup" class="section level2">
 <h2>Setup</h2>
-<pre class="r"><code>library(ggsankey)
+<p>Firstly we load in our libraries and the data. I use the <a
+href="https://www.tidyverse.org/">tidyverse</a> a lot for data cleaning
+and visualisation, <code>dplyr</code> (data wrangling),
+<code>tidyr</code> (data tidying), <code>ggplot2</code> (data
+visualisation), <code>stringr</code> for working with character strings
+and <code>readr</code> (data reading) all belong to the same family of
+packages. <code>ggsankey</code> is separate but complementary, and will
+need to be installed from github as opposed to CRAN.</p>
+<pre class="r"><code># devtools::install_github(&quot;davidsjoberg/ggsankey&quot;)
+library(ggsankey)
 library(dplyr)
 library(readr)
-library(ggplot2)</code></pre>
-<pre class="r"><code>data &lt;- readr::read_csv(&quot;data/habitat_change.csv&quot;)</code></pre>
-<pre><code>## Rows: 15 Columns: 3
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (2): before, after
-## dbl (1): id
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>test_long &lt;- data %&gt;% 
-  ggsankey::make_long(before, after)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+data &lt;- readr::read_csv(&quot;data/habitat_change.csv&quot;)
+dplyr::glimpse(data)</code></pre>
+<pre><code>## Rows: 15
+## Columns: 4
+## $ id     [3m[38;5;246m&lt;dbl&gt;[39m[23m 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+## $ before [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;arable&quot;, &quot;arable&quot;, &quot;arable&quot;, &quot;arable&quot;, &quot;a…
+## $ after  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;woodland&quot;, &quot;woodland&quot;, &quot;built up&quot;, &quot;grassland&quot;, &quot;grassland&quot;, &quot;grassland&quot;, &quot;gr…
+## $ area   [3m[38;5;246m&lt;dbl&gt;[39m[23m 10, 8, 12, 11, 4, 8, 24, 11, 12, 17, 15, 19, 21, 23, 15</code></pre>
+<p>Whenever I read a dataset into R, I tend to use
+<code>dplyr::glimpse</code> to get a look at the data. There are various
+ways to do this in R Studio, but I find glimpse to be the quickest and
+easiest. This example is a fairly typical of habitat data, one before
+the transition and one after. This could be an extract from the CEH Land
+Use Change dataset, or a Biodiversity Net Gain proposal.</p>
+<p>In order for <code>ggsankey</code> to run properly, we first need to
+use <code>tidyr::uncount</code> to convert the dataset so that 1 row = 1
+unit, in this fictional case 1 row = 1 hectare. This function is similar
+to <code>pivot_longer</code> but works better for this situation. We’re
+also going to tidy up the data so that the presentation is easier to
+digest for non-data audiences. <code>before</code> and
+<code>after</code> are useful column names for me, they’re description,
+lower case and 1 word, meaning they’re easy to work with in R. However,
+they could be far more descriptive for a visualiation, so I have changed
+them to <code>Initial habitat</code> and <code>Current habitat</code>.
+When putting a space within a column name in R (which is not recommended
+until you get to the stage to put it in a graph or table) you must label
+it with back-ticks - ``. We will also convert the habitat to sentance
+case so that the outputs in our legend are capitalised.</p>
+<pre class="r"><code>data_processed &lt;- data %&gt;% 
+  dplyr::group_by(before, after) %&gt;% 
+  tidyr::uncount(area) %&gt;% 
+  dplyr::ungroup() %&gt;% 
+  dplyr::mutate(`Initial habitat` = stringr::str_to_sentence(before), 
+                `Current habitat` = stringr::str_to_sentence(after))
 
-ggplot2::ggplot(test_long, 
+dplyr::glimpse(data_processed)</code></pre>
+<pre><code>## Rows: 210
+## Columns: 5
+## $ id                [3m[38;5;246m&lt;dbl&gt;[39m[23m 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3…
+## $ before            [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodla…
+## $ after             [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodland&quot;, &quot;woodla…
+## $ `Initial habitat` [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodla…
+## $ `Current habitat` [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodland&quot;, &quot;Woodla…</code></pre>
+<p>Then we run the <code>ggsankey::make_long</code> function, which
+formats the data specifically to create the graph. Some R packages will
+do this if they need the data in a specific way. Then we can create our
+basic sankey graph, showing the transition from one habitat to
+another.</p>
+<pre class="r"><code>data_long &lt;- data_processed %&gt;% 
+  ggsankey::make_long(`Initial habitat`, `Current habitat`)
+
+sankey_plot &lt;- ggplot2::ggplot(data_long, 
                 ggplot2::aes(x = x, next_x = next_x, node = node, 
                     next_node = next_node, fill = factor(node))) +
   ggsankey::geom_sankey() +
-  ggsankey::theme_sankey(base_size = 16) </code></pre>
+  ggsankey::theme_sankey(base_size = 16) 
+sankey_plot</code></pre>
 <p><img src="showing-habitat-change_files/figure-html/sankey-1.png" width="672" /></p>
+<p>The great thing about <code>ggplot2</code> is that you’re able to
+layer more and more custom options on top of each other, allowing you to
+programmatically find the right look for your graph and then repeat this
+across other, similar plots. Using your organisations’s brand colour
+scheme, fonts, etc. is a great way to make reports more aligned and
+professional. However, it is also essential to make sure that your
+visualisation is accessible to those with colourblindness.</p>
+<p>In the absence of a colourblind friendly brand palette, I would
+recommend using the <a
+href="https://malcolmbarrett.github.io/ggokabeito/">Okabe-Ito
+palette</a> for discrete datasets, and <a
+href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">Viridis</a>
+for continous. I’ve experimented with a lot of palettes and find these
+two to be the most accessible and stylish. The land uses in my dummy
+data come directly from the CEH Land Cover Map, and I have actually
+created a colourblind friendly palette for these categories downloaded
+as a QGIS QML file <a
+href="https://www.ceh.ac.uk/sites/default/files/2022-08/LCM%20layer%20files.zip">here</a>.</p>
+<p>We will also make some more quality of life changes. The x axis label
+is not neccessary due to our informative naming of the columns earlier
+and we need to rename the legend title.</p>
+<pre class="r"><code>sankey_plot &lt;- sankey_plot +
+  ggokabeito::scale_fill_okabe_ito() +
+  ggplot2::labs(x = &quot;&quot;, fill = &quot;Habitat&quot;) 
+sankey_plot</code></pre>
+<p><img src="showing-habitat-change_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>There we are! A reasonably professional and fairly novel way to show
+a habitat transition. Obviously there is far more we can do, but for now
+I would be quite happy to include that within a project report or
+dashboard.</p>
 </div>
 
 
