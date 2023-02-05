@@ -7,6 +7,9 @@
        href: index.html
      - text: "Showing Habitat Change"
        href: showing-habitat-change.html
+    right: 
+     - icon: ion-logo-linkedin 
+       href: https://www.linkedin.com/in/robbiestill/
   output:
     html_document:
       theme: cosmo
