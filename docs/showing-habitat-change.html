@@ -281,14 +281,13 @@ $(document).ready(function () {
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
 <pre class="r"><code>library(ggsankey)
 library(dplyr)
 library(readr)
-library(ggplot2)
-
-data &lt;- readr::read_csv(&quot;data/habitat_change.csv&quot;)</code></pre>
+library(ggplot2)</code></pre>
+<pre class="r"><code>data &lt;- readr::read_csv(&quot;data/habitat_change.csv&quot;)</code></pre>
 <pre><code>## Rows: 15 Columns: 3
 ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -305,7 +304,7 @@ ggplot2::ggplot(test_long,
                     next_node = next_node, fill = factor(node))) +
   ggsankey::geom_sankey() +
   ggsankey::theme_sankey(base_size = 16) </code></pre>
-<p><img src="showing-habitat-change_files/figure-html/cars-1.png" width="672" /></p>
+<p><img src="showing-habitat-change_files/figure-html/sankey-1.png" width="672" /></p>
 </div>
 
 
