@@ -5,8 +5,11 @@
     left:
      - text: "Home"
        href: index.html
-     - text: "Showing Habitat Change"
-       href: showing-habitat-change.html
+     - text: "Data visualisation"
+       icon: fa-gear
+       menu:
+          - text: "Showing Habitat Change"
+            href: showing-habitat-change.html
     right: 
      - icon: ion-logo-linkedin 
        href: https://www.linkedin.com/in/robbiestill/
