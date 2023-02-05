@@ -9,11 +9,11 @@ library(ggsankey)
 library(dplyr)
 library(readr)
 library(ggplot2)
+data <- readr::read_csv("data/habitat_change.csv")
+dplyr::glimpse(data)
 ```
 
 ```{r sankey, echo = TRUE}
-data <- readr::read_csv("data/habitat_change.csv")
-
 test_long <- data %>% 
   ggsankey::make_long(before, after)
 
