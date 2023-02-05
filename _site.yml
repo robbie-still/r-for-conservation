@@ -11,7 +11,7 @@
           - text: "Showing Habitat Change"
             href: showing-habitat-change.html
     right: 
-     - icon: ion-logo-linkedin 
+     - icon: fa-gear
        href: https://www.linkedin.com/in/robbiestill/
   output:
     html_document:
