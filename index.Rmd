@@ -1,5 +1,5 @@
 ---
-title: "index"
+title: "R For Conservation"
 output: html_document
 date: "`r Sys.Date()`"
 ---
@@ -8,22 +8,18 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Introduction
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Welcome to my blog on using R for conservation! This is my passion project, and something that I feel so strongly about and that works so well that I've managed to turn into a career, but more on that later. In my opinion, conservation organisations (henceforth known as eNGOs - environmental non-government organisations) around the world are significantly lagging behind other industries in developing digital systems. This is understandable given the severe lack of funding, but in my (incredibly biased) opinion spending money on either a data scientist or the training for an existing member of staff will return the investment tenfold. The passing of the [Environment Act](https://www.legislation.gov.uk/ukpga/2021/30/contents/enacted) in the UK means that conservation is finally getting a small injection of cash, so now is the time to get digital systems in place!
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Currently many of the largest and most influential conservation NGOs around the world waste time and resources on manual tasks that could be almost fully automated with the use of any combination of the vast suite of open source programming languages - R, Python, SQL, Javascript, HTML, CSS, PHP, C++. International site designations are still managed by spreadsheets and shapefiles, annual reports are still created each year in word documents and graphs are made in Excel. [GIS](https://www.esri.com/en-us/what-is-gis/overview) is often the extent of digital systems in place, and is invaluable, but even this can be very labour intensive. ArcGIS and QGIS are written in Python but most GIS professionals in conservation won't know to advantage of the coding potential or the in-built [model builders](https://docs.qgis.org/2.8/en/docs/user_manual/processing/modeler.html).
 
-```{r cars}
-summary(cars)
-```
+This is something that I aim to change, and I'm hoping that this blog will prove helpful to the other GIS Officers, Data Assistants and Database Managers out there aiming to do the same thing.
 
-## Including Plots
+## About me
 
-You can also embed plots, for example:
+My name is Robbie Still and I am the Head of Digital Development at Kent Wildlife Trust.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+I am an ecologist with an Undergrad in Biology and a Master's in Bioscience from [Swansea University](https://www.swansea.ac.uk/bioscience/). I enjoyed the yearly courses on R, which most other students hated, but really got into it during my Master's where I was creating species distribution models and could not get the [Maxent](https://biodiversityinformatics.amnh.org/open_source/maxent/) model to run via the .exe. I found an R package that did all the hard work for me ([ENMeval](https://cran.r-project.org/web/packages/ENMeval/index.html)) which really kickstarted my journey into trying to program everything! I previously worked at the [Thames Valley Environmental Records Centre](https://www.tverc.org/cms/) as an Biodiversity Data Assistant, then worked my way up to Data Manager. Record centres are, as you'd expect, almost entirely reliant on excellent data management and workflows. This allowed me to learn from an amazing team who were already working to transition from using an Access database and Macros, developed by an external consultant, to using entirely in-house solutions in R and SQL.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+I then joined KWT as a GIS and Remote Sensing Officer, a role that complements but does not necessarily rely on coding. I was incredibly lucky to join the trust at a time where they were looking to embark on a Digital Transformation and managed to get my foot in the door and moved role to a Digital Transformation Officer. I've really enjoyed this role and have been involved in the creation of the world's first [high integrity carbon registry](http://registry.wildercarbon.com/), created using PostgreSQL and R Shiny, and a variety of internal tools/improvements. I have recently moved up into the Leadership Team as Head of Digital Development and have hired a wonderful team to help me in this work. This does, however, mean that I have less time to do the actual coding myself - and so this blog has come into existence for me to play about with various things in my spare time and hopefully help inspire some people to do the same!
