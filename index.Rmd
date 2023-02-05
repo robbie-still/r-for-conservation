@@ -1,5 +1,7 @@
 ---
-title: "showing-habitat-change"
+title: "index"
+output: html_document
+date: "`r Sys.Date()`"
 ---
 
 ```{r setup, include=FALSE}
